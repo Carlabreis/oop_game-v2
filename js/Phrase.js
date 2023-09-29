@@ -29,9 +29,17 @@ class Phrase {
     });
   }
 
-  checkLetter() {
+  checkLetter(selectedLetter) {
     // checks to see if the letter selected by the player matches a letter in the phrase
-  }
+    const arrayOfCharacters = [...this.phrase];
+    //if array of charachters include letter selected
+    if (arrayOfCharacters.includes(selectedLetter)){
+        return true;
+    } else {
+        return false;
+    }
+    }
+
 
   showMatchedLetter() {
     /*
