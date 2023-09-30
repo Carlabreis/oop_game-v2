@@ -11,6 +11,9 @@ class Phrase {
   adds letter placeholders to the display when the game starts
   each letter is presented by an empty box, one 'li' element for each letter
   */
+  /**
+   * Display phrase on game board
+   */
   addPhraseToDisplay() {
     const placeholdersList = document.querySelector("#phrase ul");
     const arrayOfCharacters = [...this.phrase];
@@ -49,8 +52,8 @@ class Phrase {
   */
   showMatchedLetter(letter) {
     const matchingLetters = document.querySelectorAll(`.${letter}`);
-    matchingLetters.forEach(matchingLetter => 
-        matchingLetter.classList.replace('hide', 'show')
+    matchingLetters.forEach((matchingLetter) =>
+      matchingLetter.classList.replace("hide", "show")
     );
   }
 }
