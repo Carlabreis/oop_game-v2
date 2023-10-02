@@ -8,6 +8,8 @@
 
 Let players use their physical computer keyboard to enter guesses.
 
+I also changed some basic style like colors and font.
+
 
 <!-- ABOUT THE PROJECT -->
 
