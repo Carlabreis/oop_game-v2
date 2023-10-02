@@ -6,11 +6,11 @@ class Game {
   constructor() {
     this.missed = 0;
     this.phrases = [
-        new Phrase("Good Morning"),
-        new Phrase("Have a nice day"),
-        new Phrase("You can do it"),
-        new Phrase("Have fun"),
-        new Phrase("Carpe diem")
+      new Phrase("Good Morning"),
+      new Phrase("Have a nice day"),
+      new Phrase("You can do it"),
+      new Phrase("Have fun"),
+      new Phrase("Carpe diem"),
     ];
     this.activePhrase = null;
   }
@@ -28,7 +28,6 @@ class Game {
     this.activePhrase.addPhraseToDisplay();
   }
 
-
   // this method randomly retrieves one of the phrases stored in the phrases array and returns it
   /**
    * Selects random phrase from phrases property
@@ -42,21 +41,26 @@ class Game {
     checks to see if the button clicked by the player matches a letter in the phrase, and 
     then directs the game based on a correct or incorrect guess.
     */
-  handleInteraction(event) {
+  /**
+   * Handles onscreen keyboard button clicks
+   * @param (HTMLButtonElement) button - The clicked button element
+   */
+  handleInteraction(button) {
     // disable the selected letter's onscreen keyboard button
-    event.target.disabled = true;
+    button.target.disabled = true;
 
-    if (this.activePhrase.checkLetter(event.target.innerHTML) === true) {
-      event.target.classList.add("chosen");
-      this.activePhrase.showMatchedLetter(event.target.innerHTML);
-
-      if (this.checkForWin() === true) {
-        this.gameOver();
-        console.log('you won');
-      }
-    } else if (this.activePhrase.checkLetter(event.target.innerHTML) === false){
-      event.target.classList.add("wrong");
+    if (this.activePhrase.checkLetter(button.target.innerHTML) === true) {
+      button.target.classList.add("chosen");
+      this.activePhrase.showMatchedLetter(button.target.innerHTML);
+    } else if (
+      this.activePhrase.checkLetter(button.target.innerHTML) === false
+    ) {
+      button.target.classList.add("wrong");
       this.removeLife();
+    }
+
+    if (this.checkForWin() === true) {
+      this.gameOver(true);
     }
   }
 
@@ -66,26 +70,67 @@ class Game {
     and increments the missed property. 
     If the player has five missed guesses (i.e they're out of lives), then end the game by calling the gameOver() method.
     */
+  /**
+   * Increases the value of the missed property
+   * Removes a life from the scoreboard
+   * Checks if player has remaining lives and ends game if player is out
+   */
   removeLife() {
     this.missed = this.missed + 1;
     console.log(this.missed);
 
     const hearts = document.querySelectorAll("#scoreboard ol li");
-    hearts.childNodes[this.missed - 1].src = "images/lostHeart.png";
+    hearts[this.missed - 1].firstChild.src = "images/lostHeart.png";
 
     // If the player has five missed guesses (i.e they're out of lives), then end the game by calling the gameOver() method.
-    if (this.checkForWin() === false) {
-        console.log('you lost');
-        this.gameOver();
+    if (this.missed === 5) {
+      this.gameOver(false);
     }
   }
 
-//   checkForWin() {
-//     if (this.missed < 5 && ) {
-//         return true;
-//     } else {
-//         return false;
-//     }
-//   }
+  /**
+   * Checks for winning move
+   * @return {boolean} True if game has been won, false if game wasn't won
+   */
+  checkForWin() {
+    let wrigthLetters = document.querySelectorAll(".letter");
+    const allWright = (element) =>
+      element.classList.contains("show") ? true : false;
 
+    if (
+      this.missed < 5 === true &&
+      Array.from(wrigthLetters).every(allWright) === true
+    ) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  /**
+   * Displays game over message
+   * @param {boolean} gameWon - Whether or not the user won the game
+   */
+  gameOver(gameWon) {
+    //reset the gameboard between games
+    document.querySelector("#phrase ul").innerHTML = "";
+    document.querySelectorAll(".key").forEach((button) => {
+      button.classList.remove("chosen", "wrong");
+      button.disabled = false;
+    });
+    document.querySelectorAll("#scoreboard ol li").forEach((li) => (li.firstChild.src = "images/liveHeart.png"));
+    document.querySelector("#overlay").classList.remove("win", "lose");
+
+    // display overlay with message
+    if (gameWon) {
+      document.querySelector("#game-over-message").innerHTML = "Great job!";
+      document.querySelector("#overlay").style.display = "flex";
+      document.querySelector("#overlay").classList.add("win");
+    } else if (!gameWon) {
+      document.querySelector("#game-over-message").innerHTML =
+        "Sorry, better luck next time!";
+      document.querySelector("#overlay").style.display = "flex";
+      document.querySelector("#overlay").classList.add("lose");
+    }
+  }
 }

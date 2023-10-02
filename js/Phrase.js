@@ -38,7 +38,7 @@ class Phrase {
     const arrayOfCharacters = [...this.phrase];
 
     if (arrayOfCharacters.includes(selectedLetter)) {
-      this.showMatchedLetter(selectedLetter);
+      return true;
     } else {
       return false;
     }

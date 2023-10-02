@@ -9,6 +9,10 @@ document.querySelector("#btn__reset").addEventListener("click", () => {
 });
 
 document.querySelector("#qwerty").addEventListener("click", (event)=>{
-    game.handleInteraction(event);
+    const target = event.target;
+
+    if (target.matches("button")) {
+        game.handleInteraction(event);
+    }
 })
 
