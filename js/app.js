@@ -10,11 +10,16 @@ document.querySelector("#btn__reset").addEventListener("click", () => {
     game.startGame();
 });
 
-document.querySelector("#qwerty").addEventListener("click", (event)=>{
-    const target = event.target;
-
-    if (target.matches("button")) {
-        game.handleInteraction(event);
+document.querySelector("#qwerty").addEventListener("click", (event) => {
+    if (event.target.matches("button")) {
+        game.handleInteraction(event.target);
     }
 })
 
+document.addEventListener("keyup", (event) => {
+    document.querySelectorAll(".key").forEach(key => {
+        if (key.textContent === event.key) {
+            game.handleInteraction(key);
+        }
+    })
+})

@@ -41,15 +41,15 @@ class Game {
    */
   handleInteraction(button) {
     // disable the selected letter's onscreen keyboard button
-    button.target.disabled = true;
+    button.disabled = true;
 
-    if (this.activePhrase.checkLetter(button.target.innerHTML) === true) {
-      button.target.classList.add("chosen");
-      this.activePhrase.showMatchedLetter(button.target.innerHTML);
+    if (this.activePhrase.checkLetter(button.innerHTML) === true) {
+      button.classList.add("chosen");
+      this.activePhrase.showMatchedLetter(button.innerHTML);
     } else if (
-      this.activePhrase.checkLetter(button.target.innerHTML) === false
+      this.activePhrase.checkLetter(button.innerHTML) === false
     ) {
-      button.target.classList.add("wrong");
+      button.classList.add("wrong");
       this.removeLife();
     }
 
