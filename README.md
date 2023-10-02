@@ -8,7 +8,10 @@
 
 Let players use their physical computer keyboard to enter guesses.
 
-I also changed some basic style like colors and font.
+I also changed the some styling:
+- Imported different font-family from Google Fonts and applied for the whole project.
+- Changed the background color of the starter overlay div, also the title, buttons, and letters when shown in phrase. 
+- If user wins game, the background changes to green, and if the user loses it changes to a light red.
 
 
 <!-- ABOUT THE PROJECT -->
