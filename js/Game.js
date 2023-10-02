@@ -16,11 +16,10 @@ class Game {
   }
 
   /*
-    hides the start screen overlay, 
-    calls the getRandomPhrase() method, and 
-    sets the activePhrase property with the chosen phrase. 
-    It also adds that phrase to the board by calling the addPhraseToDisplay() method on the activePhrase property.
-    */
+   * Hides the start screen overlay;
+   * Calls the getRandomPhrase() method, and sets the activePhrase property with the chosen phrase;
+   * Adds that phrase to the board by calling the addPhraseToDisplay() method.
+   */
   startGame() {
     document.querySelector("#overlay").style.display = "none";
 
@@ -28,19 +27,14 @@ class Game {
     this.activePhrase.addPhraseToDisplay();
   }
 
-  // this method randomly retrieves one of the phrases stored in the phrases array and returns it
   /**
-   * Selects random phrase from phrases property
-   * @return {Object} Phrase object chosen to be use
+   * Selects random phrase from phrases property.
+   * @return {Object} Phrase object chosen to be used
    */
   getRandomPhrase() {
     return this.phrases[Math.floor(Math.random() * this.phrases.length)];
   }
 
-  /*
-    checks to see if the button clicked by the player matches a letter in the phrase, and 
-    then directs the game based on a correct or incorrect guess.
-    */
   /**
    * Handles onscreen keyboard button clicks
    * @param (HTMLButtonElement) button - The clicked button element
@@ -64,25 +58,16 @@ class Game {
     }
   }
 
-  /*
-    this method removes a life from the scoreboard, 
-    by replacing one of the liveHeart.png images with a lostHeart.png image (found in the images folder) 
-    and increments the missed property. 
-    If the player has five missed guesses (i.e they're out of lives), then end the game by calling the gameOver() method.
-    */
   /**
-   * Increases the value of the missed property
    * Removes a life from the scoreboard
    * Checks if player has remaining lives and ends game if player is out
    */
   removeLife() {
     this.missed = this.missed + 1;
-    console.log(this.missed);
 
     const hearts = document.querySelectorAll("#scoreboard ol li");
     hearts[this.missed - 1].firstChild.src = "images/lostHeart.png";
 
-    // If the player has five missed guesses (i.e they're out of lives), then end the game by calling the gameOver() method.
     if (this.missed === 5) {
       this.gameOver(false);
     }
@@ -93,13 +78,13 @@ class Game {
    * @return {boolean} True if game has been won, false if game wasn't won
    */
   checkForWin() {
-    let wrigthLetters = document.querySelectorAll(".letter");
+    let letters = document.querySelectorAll(".letter");
     const allWright = (element) =>
       element.classList.contains("show") ? true : false;
 
     if (
       this.missed < 5 === true &&
-      Array.from(wrigthLetters).every(allWright) === true
+      Array.from(letters).every(allWright) === true
     ) {
       return true;
     } else {
@@ -118,7 +103,9 @@ class Game {
       button.classList.remove("chosen", "wrong");
       button.disabled = false;
     });
-    document.querySelectorAll("#scoreboard ol li").forEach((li) => (li.firstChild.src = "images/liveHeart.png"));
+    document
+      .querySelectorAll("#scoreboard ol li")
+      .forEach((li) => (li.firstChild.src = "images/liveHeart.png"));
     document.querySelector("#overlay").classList.remove("win", "lose");
 
     // display overlay with message

@@ -1,6 +1,8 @@
 /* Treehouse FSJS Techdegree
  * Project 4 - OOP Game App
  * app.js */
+
+const placeholdersList = document.querySelector("#phrase ul");
 let game;
 
 document.querySelector("#btn__reset").addEventListener("click", () => {

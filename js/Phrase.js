@@ -7,15 +7,10 @@ class Phrase {
     this.phrase = phrase.toLowerCase();
   }
 
-  /*
-  adds letter placeholders to the display when the game starts
-  each letter is presented by an empty box, one 'li' element for each letter
-  */
   /**
-   * Display phrase on game board
+   * Display phrase placeholder on game board
    */
   addPhraseToDisplay() {
-    const placeholdersList = document.querySelector("#phrase ul");
     const arrayOfCharacters = [...this.phrase];
 
     arrayOfCharacters.forEach((letter) => {
@@ -33,7 +28,11 @@ class Phrase {
     });
   }
 
-  // checks to see if the letter selected by the player matches a letter in the phrase
+  /**
+   * Checks if the letter selected by the player matches a letter in the phrase
+   * @param {string} letter - The clicked button element
+   * @return {boolean} True if matches, false if it doesn't
+   */
   checkLetter(selectedLetter) {
     const arrayOfCharacters = [...this.phrase];
 
@@ -45,11 +44,9 @@ class Phrase {
   }
 
   /*
-  reveals the letter(s) on the board that matches the player's selection.
-  To reveal the matching letter(s), select all of the letter DOM elements that 
-  have a CSS class name that matches the selected letter and replace each 
-  selected element's hide CSS class with the show CSS class.
-  */
+   * Reveals the letter(s) on the board that matches the player's selection
+   * @param {string} letter - letter on phrase
+   */
   showMatchedLetter(letter) {
     const matchingLetters = document.querySelectorAll(`.${letter}`);
     matchingLetters.forEach((matchingLetter) =>
